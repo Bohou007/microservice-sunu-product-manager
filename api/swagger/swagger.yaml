@@ -1,0 +1,1276 @@
+swagger: "2.0"
+info:
+  title: API Micro service product management
+  description: API de management de produit de la platforme de sunu - Module 2
+  contact:
+    name: "Paul Elie Bohoussou"
+    email: "bohoussoupaulelie@gmail.com"
+  version: 1.0.0
+host: 127.0.0.1:5000
+basePath: /api
+schemes:
+  - http
+  - https
+paths:
+  /products/:
+    get:
+      tags:
+        - "products"
+      security:
+        - Bearer: []
+      summary: Get All products
+      produces:
+        - application/json
+      responses:
+        200:
+          description: products
+          examples:
+            application/json:
+              {
+                "count": 14,
+                "rows":
+                  [
+                    {
+                      "id": 1,
+                      "code_product": "APM-01",
+                      "product_name": "Assurance maladie",
+                      "code_filiale": "ASSU-001",
+                      "age_min": 18,
+                      "age_max": 100,
+                      "slug": "assurance-maladie",
+                      "description": "The First Product",
+                      "status": 1,
+                      "disabledAt": null,
+                      "createdAt": "2021-03-05T16:15:40.361Z",
+                      "updatedAt": "2021-03-05T16:15:40.361Z",
+                      "Segments":
+                        [
+                          {
+                            "id": 1,
+                            "segment_name": "Tiers Simple",
+                            "slug": "tiers-simple",
+                            "description": "The Tiers Simple segment",
+                            "status": 1,
+                            "disabledAt": null,
+                            "createdAt": "2021-03-05T16:30:31.588Z",
+                            "updatedAt": "2021-03-05T16:34:07.308Z",
+                            "Product_Segment":
+                              {
+                                "product_id": 1,
+                                "segment_id": 1,
+                                "createdAt": "2021-03-05T17:26:41.105Z",
+                                "updatedAt": "2021-03-05T17:26:41.105Z",
+                              },
+                          },
+                        ],
+                      "Formulas":
+                        [
+                          {
+                            "id": 1,
+                            "code_formulas": "TRS-SMPL",
+                            "formulas_name": "Tiers Simple",
+                            "productId": 1,
+                            "slug": "tiers-simple",
+                            "description": "The fisrt Formulas",
+                            "status": 1,
+                            "disabledAt": null,
+                            "createdAt": "2021-03-05T17:01:03.267Z",
+                            "updatedAt": "2021-03-05T17:01:03.267Z",
+                          },
+                        ],
+                    },
+                  ],
+              }
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+        500:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+    post:
+      tags:
+        - "products"
+      summary: Create an Products.
+      produces:
+        - application/json
+      parameters:
+        - in: formData
+          name: code_product
+          required: true
+          type: string
+          description: Code of the Products.
+        - in: formData
+          name: product_name
+          required: true
+          type: string
+          description: Name of the Products
+        - in: formData
+          name: code_filiale
+          required: true
+          type: string
+          description: Code of the Filiale
+        - in: formData
+          name: age_min
+          required: true
+          type: integer
+          description: Age Min to subcribe product
+        - in: formData
+          name: age_max
+          required: true
+          type: integer
+          description: Age Max to subcribe product
+        - in: formData
+          name: description
+          required: false
+          type: string
+          description: description of the Products
+      responses:
+        201:
+          description: Products created
+          examples:
+            application/json:
+              {
+                "error": false,
+                "data":
+                  {
+                    "id": 1,
+                    "code_product": "APM-01",
+                    "product_name": "Assurance maladie",
+                    "code_filiale": "ASSU-001",
+                    "slug": "assurance-maladie",
+                    "description": "The First Product",
+                    "status": 1,
+                    "disabledAt": null,
+                    "createdAt": "2021-03-05T16:15:40.361Z",
+                    "updatedAt": "2021-03-05T16:15:40.361Z",
+                    "Segments":
+                      [
+                        {
+                          "id": 1,
+                          "segment_name": "Tiers Simple",
+                          "slug": "tiers-simple",
+                          "description": "The Tiers Simple segment",
+                          "status": 1,
+                          "disabledAt": null,
+                          "createdAt": "2021-03-05T16:30:31.588Z",
+                          "updatedAt": "2021-03-05T16:34:07.308Z",
+                        },
+                      ],
+                  },
+                "message": "New Product created",
+              }
+        400:
+          description: Missing parameters
+          examples:
+            application/json: { "error": true, "data": [], "message": error }
+        500:
+          description: Hash function errors
+          examples:
+            application/json: { "error": "error description" }
+  /products/{id}:
+    get:
+      tags:
+        - "products"
+      security:
+        - Bearer: []
+      summary: Get One Products
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+          description: the Products ID
+      responses:
+        200:
+          description: Products
+          examples:
+            application/json:
+              
+                    {
+                      "id": 1,
+                      "code_product": "APM-01",
+                      "product_name": "Assurance maladie",
+                      "code_filiale": "ASSU-001",
+                      "age_min": 18,
+                      "age_max": 100,
+                      "slug": "assurance-maladie",
+                      "description": "The First Product",
+                      "status": 1,
+                      "disabledAt": null,
+                      "createdAt": "2021-03-05T16:15:40.361Z",
+                      "updatedAt": "2021-03-05T16:15:40.361Z",
+                      "Segments":
+                        [
+                          {
+                            "id": 1,
+                            "segment_name": "Tiers Simple",
+                            "slug": "tiers-simple",
+                            "description": "The Tiers Simple segment",
+                            "status": 1,
+                            "disabledAt": null,
+                            "createdAt": "2021-03-05T16:30:31.588Z",
+                            "updatedAt": "2021-03-05T16:34:07.308Z",
+                            "Product_Segment":
+                              {
+                                "product_id": 1,
+                                "segment_id": 1,
+                                "createdAt": "2021-03-05T17:26:41.105Z",
+                                "updatedAt": "2021-03-05T17:26:41.105Z",
+                              },
+                          },
+                        ],
+                      "Formulas":
+                        [
+                          {
+                            "id": 1,
+                            "code_formulas": "TRS-SMPL",
+                            "formulas_name": "Tiers Simple",
+                            "productId": 1,
+                            "slug": "tiers-simple",
+                            "description": "The fisrt Formulas",
+                            "status": 1,
+                            "disabledAt": null,
+                            "createdAt": "2021-03-05T17:01:03.267Z",
+                            "updatedAt": "2021-03-05T17:01:03.267Z",
+                          },
+                        ],
+                    }
+                  
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+    put:
+      tags:
+        - "products"
+      security:
+        - Bearer: []
+      summary: Update One Products
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+          description: the products ID
+        - in: formData
+          name: code_product
+          required: true
+          type: string
+          description: Code of the Products
+        - in: formData
+          name: product_name
+          required: true
+          type: string
+          description: Name of the Products
+        - in: formData
+          name: age_min
+          required: true
+          type: integer
+          description: Age Min to subcribe product
+        - in: formData
+          name: age_max
+          required: true
+          type: integer
+          description: Age Max to subcribe product
+        - in: formData
+          name: description
+          required: true
+          type: string
+          description: Description of the Products
+      responses:
+        200:
+          description: Products updated
+          examples:
+            application/json: { "error": false, "message": "Products updated" }
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+
+  /products/enabled/{id}:
+    put:
+      tags:
+        - "products"
+      security:
+        - Bearer: []
+      summary: Enabled products
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+          description: The products enobled by ID
+      responses:
+        200:
+          description: Products enabled
+          examples:
+            application/json: { "error": false, "message": "Products enabled" }
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+  /products/disabled/{id}:
+    put:
+      tags:
+        - "products"
+      security:
+        - Bearer: []
+      summary: disabled an products
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+          description: The products ID
+      responses:
+        200:
+          description: Products disabled
+          examples:
+            application/json: { "error": false, "message": "Products disabled" }
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+
+  /segments:
+    get:
+      tags:
+        - "segments"
+      security:
+        - Bearer: []
+      summary: get All Segments
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Segments
+          examples:
+            application/json:
+              {
+                "count": 3,
+                "rows":
+                  [
+                    {
+                      "id": 1,
+                      "segment_name": "IARD",
+                      "description": "Segment First of product",
+                      "disabledAt": null,
+                      "created_at": null,
+                      "updated_at": null,
+                    },
+                    {
+                      "id": 2,
+                      "segment_name": "MIXTE",
+                      "description": "Segment Second of product",
+                      "disabledAt": null,
+                      "created_at": null,
+                      "updated_at": null,
+                    },
+                    {
+                      "id": 3,
+                      "segment_name": "VIE",
+                      "description": "Segment Third of product",
+                      "disabledAt": null,
+                      "created_at": null,
+                      "updated_at": null,
+                    },
+                  ],
+              }
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+    post:
+      tags:
+        - "segments"
+      security:
+        - Bearer: []
+      summary: create a segments
+      produces:
+        - application/json
+      parameters:
+        - in: formData
+          name: segment_name
+          required: true
+          type: string
+          description: Name of Segments
+        - in: formData
+          name: description
+          required: false
+          type: integer
+          description: description of Segments
+      responses:
+        201:
+          description: Segments created
+          examples:
+            application/json:
+              {
+                "error": false,
+                "data":
+                  {
+                    "id": 4,
+                    "segment_name": "Auto",
+                    "description": "Segments of Four poduct",
+                    "disabledAt": "2020-08-06T18:04:15.869Z",
+                    "created_at": "2020-08-06T18:04:15.869Z",
+                    "updated_at": "2020-08-06T18:04:15.869Z",
+                  },
+                "message": "New Segments created",
+              }
+        400:
+          description: error
+          examples:
+            application/json: { "error": true, "data": [], "message": error }
+  /segments/{id}:
+    get:
+      tags:
+        - "segments"
+      security:
+        - Bearer: []
+      summary: Get One segments
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+          description: the segments ID
+      responses:
+        200:
+          description: segments
+          examples:
+            application/json:
+              {
+                "id": 1,
+                "segment_name": "IARD",
+                "status": 0,
+                "description": "Segment of product",
+                "created_at": "2020-08-06T00:27:46.000Z",
+                "updated_at": "2020-08-06T11:53:10.000Z",
+              }
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+    put:
+      tags:
+        - "segments"
+      security:
+        - Bearer: []
+      summary: Update One segments
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+          description: the segments ID
+        - in: formData
+          name: segment_name
+          required: true
+          type: string
+          description: Code of the segments
+        - in: formData
+          name: description
+          required: true
+          type: text
+          description: Description of the segments
+      responses:
+        200:
+          description: segments updated
+          examples:
+            application/json: { "error": false, "message": "segments update" }
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+  /segments/enabled/{id}:
+    put:
+      tags:
+        - "segments"
+      security:
+        - Bearer: []
+      summary: Enabled Segments
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+          description: The segments enobled by ID
+      responses:
+        200:
+          description: Segments enabled
+          examples:
+            application/json: { "error": false, "message": "Segments enabled" }
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+  /segments/disabled/{id}:
+    put:
+      tags:
+        - "segments"
+      security:
+        - Bearer: []
+      summary: Disabled an segments
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+          description: The segments ID
+      responses:
+        200:
+          description: segments disabled
+          examples:
+            application/json: { "error": false, "message": "Segments disabled" }
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+
+  /product-segments:
+    get:
+      tags:
+        - "product-segments"
+      security:
+        - Bearer: []
+      summary: get All product-segments
+      produces:
+        - application/json
+      responses:
+        200:
+          description: guarantee-formulas
+          examples:
+            application/json:
+              {
+                "count": 3,
+                "rows":
+                  [
+                    {
+                      "id": 1,
+                      "product_id": 1,
+                      "segment_id": 2,
+                      "created_at": null,
+                      "updated_at": null,
+                    },
+                    {
+                      "id": 1,
+                      "product_id": 2,
+                      "segment_id": 2,
+                      "created_at": null,
+                      "updated_at": null,
+                    },
+                    {
+                      "id": 1,
+                      "product_id": 3,
+                      "segment_id": 2,
+                      "created_at": null,
+                      "updated_at": null,
+                    },
+                  ],
+              }
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+    post:
+      tags:
+        - "product-segments"
+      security:
+        - Bearer: []
+      summary: create a products-segments
+      produces:
+        - application/json
+      parameters:
+        - in: formData
+          name: product_id
+          required: true
+          type: integer
+          description: product ID of Segments
+        - in: formData
+          name: segment_id
+          required: false
+          type: integer
+          description: Segments ID of Segments
+      responses:
+        201:
+          description: products-segments
+          examples:
+            application/json:
+              {
+                "error": false,
+                "data":
+                  {
+                    "id": 4,
+                    "guarantee_id": 3,
+                    "formulas_id": 1,
+                    "created_at": null,
+                    "updated_at": null,
+                  },
+                "message": "Product attached to Segments ",
+              }
+        400:
+          description: error
+          examples:
+            application/json: { "error": true, "data": [], "message": error }
+  /products-segments/{id}:
+    get:
+      tags:
+        - "product-segments"
+      security:
+        - Bearer: []
+      summary: get the products-segments
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+          description: the ID of a products-segments
+      responses:
+        200:
+          description: product-segments
+          examples:
+            application/json:
+              [
+                {
+                  "id": 1,
+                  "product_id": 1,
+                  "segment_id": 2,
+                  "created_at": null,
+                  "updated_at": null,
+                },
+                {
+                  "id": 1,
+                  "product_id": 2,
+                  "segment_id": 2,
+                  "created_at": null,
+                  "updated_at": null,
+                },
+                {
+                  "id": 1,
+                  "product_id": 3,
+                  "segment_id": 2,
+                  "created_at": null,
+                  "updated_at": null,
+                },
+              ]
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+
+  /formulas:
+    get:
+      tags:
+        - "formulas"
+      security:
+        - Bearer: []
+      summary: get All Formulas
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Formulas
+          examples:
+            application/json:
+              {
+                "count": 3,
+                "rows":
+                  [
+                    {
+                      "id": 1,
+                      "formulas_name": "SUNU-DIFIT-TRANS-CIV",
+                      "code_formulas": "VCI-34H",
+                      "productId": 3,
+                      "description": "Un test paragraphe",
+                      "status": 1,
+                      "created_at": null,
+                      "updated_at": null,
+                    },
+                    {
+                      "id": 2,
+                      "formulas_name": "SUNU-ALL-TRANS-CIV",
+                      "code_formulas": "KKJ-34H",
+                      "productId": 2,
+                      "description": "Un test paragraphe",
+                      "status": 1,
+                      "created_at": null,
+                      "updated_at": null,
+                    },
+                    {
+                      "id": 1,
+                      "formulas_name": "SUNU-JKL-TRANS-CIV",
+                      "code_formulas": "LII-34H",
+                      "productId": 1,
+                      "description": "Un test paragraphe",
+                      "status": 1,
+                      "created_at": null,
+                      "updated_at": null,
+                    },
+                  ],
+              }
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+    post:
+      tags:
+        - "formulas"
+      security:
+        - Bearer: []
+      summary: create a Formulas
+      produces:
+        - application/json
+      parameters:
+        - in: formData
+          name: formulas_name
+          required: true
+          type: string
+          description: the Name of a Formulas
+        - in: formData
+          name: code_formulas
+          required: true
+          type: string
+          description: the Code of a Formulas
+        - in: formData
+          name: productId
+          required: true
+          type: integer
+          description: the Id of a Product
+        - in: formData
+          name: description
+          required: true
+          type: text
+          description: the description of a Formulas
+      responses:
+        201:
+          description: cities
+          examples:
+            application/json:
+              {
+                "error": false,
+                "data":
+                  {
+                    "id": 4,
+                    "formulas_name": "SUNU-DIFIT-TRANS-CIV",
+                    "code_formulas": "VCI-34H",
+                    "productId": 3,
+                    "description": "Un test paragraphe",
+                    "status": 1,
+                    "created_at": null,
+                    "updated_at": null,
+                  },
+                "message": "Formulas created",
+              }
+        400:
+          description: error
+          examples:
+            application/json: { "error": true, "data": [], "message": error }
+  /formulas/{id}:
+    get:
+      tags:
+        - "formulas"
+      security:
+        - Bearer: []
+      summary: get the formulas
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+          description: the ID of a city
+      responses:
+        200:
+          description: cities
+          examples:
+            application/json:
+              [
+                {
+                  "id": 1,
+                  "formulas_name": "SUNU-DIFIT-TRANS-CIV",
+                  "code_formulas": "VCI-34H",
+                  "productId": 3,
+                  "description": "Un test paragraphe",
+                  "status": 1,
+                  "created_at": null,
+                  "updated_at": null,
+                },
+                {
+                  "id": 2,
+                  "formulas_name": "SUNU-DIFIT-TRANS-CIV",
+                  "code_formulas": "VCI-34H",
+                  "productId": 3,
+                  "description": "Un test paragraphe",
+                  "status": 1,
+                  "created_at": null,
+                  "updated_at": null,
+                },
+              ]
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+    put:
+      tags:
+        - "formulas"
+      security:
+        - Bearer: []
+      summary: Update One formulas
+      produces:
+        - application/json
+      parameters:
+        - in: formData
+          name: formulas_name
+          required: true
+          type: string
+          description: the Name of a Formulas
+        - in: formData
+          name: description
+          required: true
+          type: text
+          description: the description of a Formulas
+      responses:
+        200:
+          description: Formulas updated
+          examples:
+            application/json: { "error": false, "message": "Formulas update" }
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+
+  /formulas/enabled/{id}:
+    put:
+      tags:
+        - "formulas"
+      security:
+        - Bearer: []
+      summary: enabled formulas
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+          description: The formulas enabled by ID
+      responses:
+        200:
+          description: formulas enabled
+          examples:
+            application/json: { "error": false, "message": "formulas enabled" }
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+  /formulas/disabled/{id}:
+    put:
+      tags:
+        - "formulas"
+      security:
+        - Bearer: []
+      summary: disabled an formulas
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+          description: the formulas ID
+      responses:
+        200:
+          description: formulas disabled
+          examples:
+            application/json: { "error": false, "message": "formulas disabled" }
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+
+  /guarantee:
+    get:
+      tags:
+        - "guarantee"
+      security:
+        - Bearer: []
+      summary: get All Guarantee
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Guarantee
+          examples:
+            application/json:
+              {
+                "count": 3,
+                "rows":
+                  [
+                    {
+                      "id": 1,
+                      "formulas_name": "SUNU-DIFIT-TRANS-CIV",
+                      "code_formulas": "VCI-34H",
+                      "productId": 3,
+                      "description": "Un test paragraphe",
+                      "status": 1,
+                      "created_at": null,
+                      "updated_at": null,
+                    },
+                    {
+                      "id": 2,
+                      "formulas_name": "SUNU-ALL-TRANS-CIV",
+                      "code_formulas": "KKJ-34H",
+                      "productId": 2,
+                      "description": "Un test paragraphe",
+                      "status": 1,
+                      "created_at": null,
+                      "updated_at": null,
+                    },
+                    {
+                      "id": 1,
+                      "formulas_name": "SUNU-JKL-TRANS-CIV",
+                      "code_formulas": "LII-34H",
+                      "productId": 1,
+                      "description": "Un test paragraphe",
+                      "status": 1,
+                      "created_at": null,
+                      "updated_at": null,
+                    },
+                  ],
+              }
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+    post:
+      tags:
+        - "guarantee"
+      security:
+        - Bearer: []
+      summary: create a Guarantee
+      produces:
+        - application/json
+      parameters:
+        - in: formData
+          name: guarantee_name
+          required: true
+          type: string
+          description: the Name of a Guarantee
+        - in: formData
+          name: code_guarantee
+          required: true
+          type: string
+          description: the Code of a Guarantee
+        - in: formData
+          name: ref_calcule
+          required: true
+          type: string
+          description: the reference of engime tarification
+        - in: formData
+          name: description
+          required: true
+          type: text
+          description: the description of a Guarantee
+      responses:
+        201:
+          description: Guarantee
+          examples:
+            application/json:
+              {
+                "error": false,
+                "data":
+                  {
+                    "id": 4,
+                    "guarantee_name": "Tiers siimple",
+                    "code_guarantee": "VCI-34H",
+                    "ref_calcule": "RYZT32T2HB2",
+                    "description": "Un test paragraphe",
+                    "status": 1,
+                    "created_at": null,
+                    "updated_at": null,
+                  },
+                "message": "Guarantee created",
+              }
+        400:
+          description: error
+          examples:
+            application/json: { "error": true, "data": [], "message": error }
+  /guarantee/{id}:
+    get:
+      tags:
+        - "guarantee"
+      security:
+        - Bearer: []
+      summary: get the guarantee
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+          description: the ID of a guarantee
+      responses:
+        200:
+          description: guarantee
+          examples:
+            application/json:
+              [
+                {
+                  "id": 1,
+                  "guarantee_name": "SUNU-DIFIT-TRANS-CIV",
+                  "code_guarantee": "VCI-34H",
+                  "ref_calcule": "2UUU3YUU2H",
+                  "description": "Un test paragraphe",
+                  "status": 1,
+                  "created_at": null,
+                  "updated_at": null,
+                },
+                {
+                  "id": 1,
+                  "guarantee_name": "SUNU-DIFIT-TRANS-CIV",
+                  "code_guarantee": "VCI-34H",
+                  "ref_calcule": "2UUU3YUU2H",
+                  "description": "Un test paragraphe",
+                  "status": 1,
+                  "created_at": null,
+                  "updated_at": null,
+                },
+                {
+                  "id": 1,
+                  "guarantee_name": "SUNU-DIFIT-TRANS-CIV",
+                  "code_guarantee": "VCI-34H",
+                  "ref_calcule": "2UUU3YUU2H",
+                  "description": "Un test paragraphe",
+                  "status": 1,
+                  "created_at": null,
+                  "updated_at": null,
+                },
+              ]
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+    put:
+      tags:
+        - "guarantee"
+      security:
+        - Bearer: []
+      summary: Update One guarantee
+      produces:
+        - application/json
+      parameters:
+        - in: formData
+          name: guarantee_name
+          required: true
+          type: integer
+          description: the Name of a guarantee
+        - in: formData
+          name: description
+          required: true
+          type: text
+          description: the description of a guarantee
+      responses:
+        200:
+          description: Guarantee updated
+          examples:
+            application/json: { "error": false, "message": "Guarantee update" }
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+
+  /guarantee/enabled/{id}:
+    put:
+      tags:
+        - "guarantee"
+      security:
+        - Bearer: []
+      summary: enabled guarantee
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+          description: The guarantee enobled by ID
+      responses:
+        200:
+          description: guarantee enabled
+          examples:
+            application/json: { "error": false, "message": "guarantee enabled" }
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+  /guarantee/disabled/{id}:
+    put:
+      tags:
+        - "guarantee"
+      security:
+        - Bearer: []
+      summary: disabled an guarantee
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+          description: the formulas ID
+      responses:
+        200:
+          description: guarantee disabled
+          examples:
+            application/json:
+              { "error": false, "message": "guarantee disabled" }
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+
+  /guarantee-formulas:
+    get:
+      tags:
+        - "guarantee-formulas"
+      security:
+        - Bearer: []
+      summary: get All guarantee-formulas
+      produces:
+        - application/json
+      responses:
+        200:
+          description: guarantee-formulas
+          examples:
+            application/json:
+              {
+                "count": 3,
+                "rows":
+                  [
+                    {
+                      "id": 1,
+                      "guarantee_id": 1,
+                      "formulas_id": 2,
+                      "created_at": null,
+                      "updated_at": null,
+                    },
+                    {
+                      "id": 2,
+                      "guarantee_id": 2,
+                      "formulas_id": 3,
+                      "created_at": null,
+                      "updated_at": null,
+                    },
+                    {
+                      "id": 3,
+                      "guarantee_id": 2,
+                      "formulas_id": 3,
+                      "created_at": null,
+                      "updated_at": null,
+                    },
+                  ],
+              }
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
+    post:
+      tags:
+        - "guarantee-formulas"
+      security:
+        - Bearer: []
+      summary: create a guarantee-formulas
+      produces:
+        - application/json
+      parameters:
+        - in: formData
+          name: formulas_name
+          required: true
+          type: string
+          description: the Name of a guarantee-formulas
+        - in: formData
+          name: guarantee_id
+          required: true
+          type: integer
+          description: the Code of a guarantee-formulas
+        - in: formData
+          name: guarantee_id
+          required: true
+          type: integer
+          description: the Id of a guarantee-formulas
+      responses:
+        201:
+          description: guarantee-formulas
+          examples:
+            application/json:
+              {
+                "error": false,
+                "data":
+                  {
+                    "id": 4,
+                    "guarantee_id": 2,
+                    "formulas_id": 3,
+                    "created_at": null,
+                    "updated_at": null,
+                  },
+                "message": "guarantee attached to formulas ",
+              }
+        400:
+          description: error
+          examples:
+            application/json: { "error": true, "data": [], "message": error }
+  /guarantee-formulas/{id}:
+    get:
+      tags:
+        - "guarantee-formulas"
+      security:
+        - Bearer: []
+      summary: get the guarantee-formulas
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+          description: the ID of a guarantee-formulas
+      responses:
+        200:
+          description: cities
+          examples:
+            application/json:
+              [
+                {
+                  "id": 1,
+                  "guarantee_id": 1,
+                  "formulas_id": 2,
+                  "created_at": null,
+                  "updated_at": null,
+                },
+              ]
+        400:
+          description: error
+          examples:
+            application/json: { "error": "error description" }
