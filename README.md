@@ -1,4 +1,4 @@
-## API Micro Service Sefcare of settings - Digitas Sunu Group
+## API Micro Service Sefcare of products manager - Digitas Sunu Group
 This api was use to create, read, show enable and disable 
 
 Products, Segments, Formulas and Guarantees
