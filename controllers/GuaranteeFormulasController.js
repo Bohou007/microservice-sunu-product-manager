@@ -13,7 +13,7 @@ exports.getAllGuaranteeFormulas = (req, res, next) => {
         .then(data => res.status(200).json({ 'error': false, 'Guarantee-Segment': data}))
 
         .catch(err => {
-            res.status(500).send({
+            res.status(500).json({
                 message: err.message || "Some error occurred while retrieving Guarantee Formulas."
             });
         });
@@ -27,7 +27,7 @@ exports.getOneGuaranteeFormulas = (req, res, next) => {
         .then(data => res.status(200).json({ 'error': false, 'Guarantee & Formulas': data, 'message': ' Guarantee & Formulas was selected' }))
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Guarantee & Formulas with id=" + id
+                message: err.message || "Error retrieving Guarantee & Formulas with id=" + id
             });
         });
 }
@@ -53,7 +53,7 @@ exports.attach = (req, res, next) => {
                 }
             );
     } else {
-        res.status(404).send("Data is not existe");
+        res.status(404).json({ message:"Data is not existe"});
     }
 
 

@@ -17,7 +17,7 @@ exports.getAllFormulas = (req, res, next) => {
         .then(data => res.status(200).json({ 'error': false, 'Formulas': data }))
 
         .catch(err => {
-            res.status(500).send({
+            res.status(500).json({
                 message: err.message || "Some error occurred while retrieving Formulas."
             });
         });
@@ -30,8 +30,8 @@ exports.getOneFormulas = (req, res, next) => {
     Formulas.findByPk(id, { include: [Product, Guarantee] })
         .then(data => res.status(200).json({ 'error': false, 'Formulas': data, 'message': data.formulas_name + ' Formulas was selected' }))
         .catch(err => {
-            res.status(500).send({
-                message: "Error retrieving Formulas with id=" + id
+            res.status(500).json({
+                message: err.message || "Error retrieving Formulas with id=" + id
             });
         });
 }
@@ -40,32 +40,32 @@ exports.getOneFormulas = (req, res, next) => {
 exports.createFormulas = (req, res, next) => {
 
     if (!req.body.formulas_name) {
-        res.status(400).send({
+        res.status(400).json({
             message: "Formulas Name Content can not be empty!"
         });
         return;
     }
     if (!req.body.code_formulas) {
-        res.status(400).send({
+        res.status(400).json({
             message: "Formulas Code Content can not be empty!"
         });
         return;
     }
     const product = Product.findByPk(req.body.productId);
     if (product == "") {
-        res.status(400).send({
+        res.status(400).json({
             message: "Products is not exist!"
         });
         return;
     }
     if (!req.body.productId) {
-        res.status(400).send({
+        res.status(400).json({
             message: "product Id Content can not be empty!"
         });
         return;
     }
     if (!req.body.description) {
-        res.status(400).send({
+        res.status(400).json({
             message: "Description Id Content can not be empty!"
         });
         return;

@@ -17,7 +17,7 @@ exports.getAllProducts = (req, res, next) => {
         .then(data => res.status(200).json({ 'error': false, 'Products': data}))
 
         .catch(err => {
-            res.status(500).send({
+            res.status(500).json({
                 message: err.message || "Some error occurred while retrieving Products."
             });
         });
@@ -31,13 +31,13 @@ exports.getOneProducts = (req, res, next) => {
     const id = req.params.id;
     if(!id)
     {
-        res.status(404).send("The Id isnt exist !");
+        res.status(404).json("The Id isnt exist !");
     }
     Product.findByPk(id, { include: [Segment, Formulas] })
         .then(data => res.status(200).json({ 'error': false, 'Products': data, 'message': 'One Products was selected' }))
         .catch(err => {
-            res.status(500).send({
-                message: "Error retrieving Products with id=" + id
+            res.status(500).json({
+                message: err.message || "Error retrieving Products with id=" + id
             });
         });
 }
@@ -46,25 +46,25 @@ exports.getOneProducts = (req, res, next) => {
 // Controller to Create Products
 exports.createProducts = (req, res , next) => {
     if (!req.body.code_product) { 
-        res.status(400).send({
+        res.status(400).json({
             message: "Products ISO Code Content can not be empty!"
         });
         return;
     }
     if (!req.body.product_name) {
-        res.status(400).send({
+        res.status(400).json({
             message: "Products Name Content can not be empty!"
         });
         return;
     }
     if (!req.body.code_filiale) {
-        res.status(400).send({
+        res.status(400).json({
             message: "Products Name Content can not be empty!"
         });
         return;
     }
     if (!req.body.description) {
-        res.status(400).send({
+        res.status(400).json({
             message: "Description Content can not be empty!"
         });
         return;

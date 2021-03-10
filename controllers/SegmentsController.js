@@ -30,7 +30,7 @@ exports.getOneSegments = (req, res, next) => {
         .then(data => res.status(200).json({ 'error': false, 'Segments': data, 'message': data.segment_name + ' Segments was selected' }))
         .catch(err => {
             res.status(500).json({
-                message: "Error retrieving Segments with id=" + id
+                message: err.message || "Error retrieving Segments with id=" + id
             });
         });
 }
@@ -38,13 +38,13 @@ exports.getOneSegments = (req, res, next) => {
 // Controller to Create Segments
 exports.createSegments = (req, res, next) => {
     if (!req.body.segment_name) { 
-        res.status(400).send({
+        res.status(400).json({
             message: "Segments name Content can not be empty!"
         });
         return;
     }
     if (!req.body.description) {
-        res.status(400).send({
+        res.status(400).json({
             message: "Description Content can not be empty!"
         });
         return;

@@ -14,7 +14,7 @@ exports.getAllGuarantee = (req, res, next) => {
         .then(data => res.status(200).json({ 'error': false, 'Guarantee': data}))
 
         .catch(err => {
-            res.status(500).send({
+            res.status(500).json({
                 message: err.message || "Some error occurred while retrieving Guarantee."
             });
         });
@@ -26,8 +26,8 @@ exports.getOneGuarantee = (req, res, next) => {
     Guarantee.findByPk(id, { include: [Formulas] })
         .then(data => res.status(200).json({ 'error': false, 'Guarantee': data, 'message':' Guarantee was selected' }))
         .catch(err => {
-            res.status(500).send({
-                message: "Error retrieving Guarantee with id=" + id
+            res.status(500).json({
+                message: err.message || "Error retrieving Guarantee with id=" + id
             });
         });
 }
@@ -35,25 +35,25 @@ exports.getOneGuarantee = (req, res, next) => {
 // Controller to Create Guarantee
 exports.createGuarantee = (req, res, next) => {
     if (!req.body.guarantee_name) { 
-        res.status(400).send({
+        res.status(400).json({
             message: "Guarantee name Content can not be empty!"
         });
         return;
     }
     if (!req.body.code_guarantee) { 
-        res.status(400).send({
+        res.status(400).json({
             message: "Guarantee code Content can not be empty!"
         });
         return;
     }
     if (!req.body.ref_calcule) { 
-        res.status(400).send({
+        res.status(400).json({
             message: "Ref Calcule Content can not be empty!"
         });
         return;
     }
     if (!req.body.description) {
-        res.status(400).send({
+        res.status(400).json({
             message: "Description Content can not be empty!"
         });
         return;

@@ -2,31 +2,11 @@ const { Product } = require('../models');
 const { Segment } = require('../models');
 const { Product_Segment } = require('../models');
 
+// Get Relation table text
+const relations = require('../relations/TableRelations');
+relations.ProductSegmentAssociation(); // Association Product and Segment
 
 exports.getAllProductSegment = (req, res, next) => {
-
-    Product.belongsToMany(Segment, {
-        through: Product_Segment,
-        foreignKey: 'product_id',
-        otherKey: 'segment_id',
-    });
-
-    Segment.belongsToMany(Product, {
-        through: Product_Segment,
-        foreignKey: 'product_id',
-        otherKey: 'segment_id',
-    });
-
-    Product_Segment.belongsTo(Product, {
-        foreignKey: 'product_id',
-        // as: 'Branch',
-    });
-
-    Product_Segment.belongsTo(Segment, {
-        foreignKey: 'segment_id',
-        // as: 'Filiales',
-    });
-
     
     Product_Segment.findAll({ include: [Product, Segment] })
         .then(data => res.status(200).json({ 'error': false, 'Product-Segment': data}))
@@ -41,35 +21,13 @@ exports.getAllProductSegment = (req, res, next) => {
 
 exports.getOneProductSegment = (req, res, next) => {
 
-    Product.belongsToMany(Segment, {
-        through: Product_Segment,
-        foreignKey: 'product_id',
-        otherKey: 'segment_id',
-    });
-
-    Segment.belongsToMany(Product, {
-        through: Product_Segment,
-        foreignKey: 'product_id',
-        otherKey: 'segment_id',
-    });
-
-    Product_Segment.belongsTo(Product, {
-        foreignKey: 'product_id',
-        // as: 'Branch',
-    });
-
-    Product_Segment.belongsTo(Segment, {
-        foreignKey: 'segment_id',
-        // as: 'Filiales',
-    });
-
     const id = req.params.id;
 
     Product_Segment.findByPk(id, { include: [Product, Segment] })
         .then(data => res.status(200).json({ 'error': false, 'Product & Segment': data, 'message': data.filiale_name + ' Product & Segment was selected' }))
         .catch(err => {
-            res.status(500).send({
-                message: "Error retrieving Product & Segment with id=" + id
+            res.status(500).json({
+                message: err.message || "Error retrieving Product & Segment with id=" + id
             });
         });
 }
